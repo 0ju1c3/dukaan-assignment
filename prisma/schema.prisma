@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions? Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
     provider = "prisma-client-js"
@@ -29,8 +27,28 @@ model Store {
     seller   Seller @relation(fields: [sellerId], references: [id])
 }
 
-model Buyer{
-    id           Int     @id @default(autoincrement())
-    mobileNumber Int     @unique
-    address String
+model Buyer {
+    id           Int    @id @default(autoincrement())
+    mobileNumber Int    @unique
+    otp          Int
+    address      String
+}
+
+model Product {
+    id          Int      @id @default(autoincrement())
+    name        String
+    description String
+    mrp         Int
+    price       Int
+    image       String
+    categoryId  Int
+    category    Category @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+    id        Int       @id @default(autoincrement())
+    name      String
+    Product   Product[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
 }
