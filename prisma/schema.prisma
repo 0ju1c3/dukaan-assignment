@@ -28,3 +28,9 @@ model Store {
     sellerId Int
     seller   Seller @relation(fields: [sellerId], references: [id])
 }
+
+model Buyer{
+    id           Int     @id @default(autoincrement())
+    mobileNumber Int     @unique
+    address String
+}
